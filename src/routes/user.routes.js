@@ -1,4 +1,4 @@
-const { getJwtToken } = require("../controllers/user.controller")
+const { getJwtToken, getUserData } = require("../controllers/user.controller")
 
 async function userRoutes(fastify, options) {
 
@@ -9,7 +9,7 @@ async function userRoutes(fastify, options) {
 
 
     fastify.get('/users', async(request, reply) => {
-        reply.send({ hello: 'world111' })
+        reply.send(await getUserData())
     });
 
     const createUserOpts = {
