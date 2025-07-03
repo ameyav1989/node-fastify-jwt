@@ -3,7 +3,7 @@ const jwt = require('fastify-jwt');
 module.exports = (fastify) => {
 
     fastify.register(jwt, {
-        secret: 'supersecretkey' // Replace with a secure key. This would be client key for different platforms
+        secret: '' // Replace with a secure key. This would be client key for different platforms
     });
 
     fastify.addHook('onRequest', async (request, reply) => {
