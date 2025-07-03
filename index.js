@@ -1,6 +1,6 @@
 
-console.log("./environment" + `/.env.${process.env.NODE_ENV || "developement"}`)
-require('dotenv').config({ path: "./environment" + `/.env.${process.env.NODE_ENV || "developement"}` })
+console.log("./environment" + `/.env.${process.env.NODE_ENV || "development"}`)
+require('dotenv').config({ path: "./environment" + `/.env.${process.env.NODE_ENV || "development"}` })
 const fastify = require('fastify')({
   logger: true
 })

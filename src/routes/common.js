@@ -1,9 +1,8 @@
 const jwt = require('fastify-jwt');
 
 module.exports = (fastify) => {
-
     fastify.register(jwt, {
-        secret: '' // Replace with a secure key. This would be client key for different platforms
+        secret: process.env.SECRET_KEY // Replace with a secure key. This would be client key for different platforms
     });
 
     fastify.addHook('onRequest', async (request, reply) => {
