@@ -1,4 +1,4 @@
-const jwt = require('fastify-jwt');
+const jwt = require('@fastify/jwt');
 
 module.exports = (fastify) => {
     fastify.register(jwt, {
