@@ -1,11 +1,8 @@
 const getLeadData = (leadId) => {
-
-    return {"leadId": leadId, "leadName": "Xyz"};
-
+  return { "leadId": leadId, "leadName": "Xyz" };
 }
 
 const createNewLead = () => {
-
 
 
 }
