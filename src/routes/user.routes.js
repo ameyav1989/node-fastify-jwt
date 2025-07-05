@@ -1,4 +1,4 @@
-const { getUserData } = require("../controllers/user.controller")
+const { getUserData, createNewUser } = require("../controllers/user.controller")
 
 async function routes(fastify, options) {
 
@@ -10,27 +10,36 @@ async function routes(fastify, options) {
     schema: {
       body: {
         type: 'object',
-        /* content: {
-            'application/json': {
-                schema: { type: 'object' }
-            }
-        }, */
-        required: ['userId', 'userName'],
+        required: ['userName', 'firstname', 'lastname', 'dateofbirth', 'email', 'mobileNo'],
         properties: {
-          userId: { type: 'number', maxLength: 5 },
-          userName: { type: 'string', minLength: 10 },
+          // userId: { type: 'number' },
+          userName: { type: 'string', minLength: 5, maxLength: 20, pattern: '^[a-zA-Z]+$' },
           firstname: { type: 'string' },
           lastname: { type: 'string' },
-          dateofbirth: { type: 'string' }
+          dateofbirth: { type: 'string' },
+          email: { type: 'string' ,format: 'email', maxLength: 100},
+          mobileNo: { type: 'string',  pattern: '^\\+?[5-9]\\d{1,14}$' }
         }
       }
     }
   }
 
   fastify.post('/users/createuser', createUserOpts, async (request, reply) => {
-    console.log(request.body)
-
-    return request.body;
+    try {
+      const userData = request.body;
+      
+      // Data is already validated by your schema, but you can add extra validation            
+      const result = await createNewUser(userData);
+      reply.code(201).send({ 
+        message: 'User created successfully', 
+        user: result 
+      });
+    } catch (error) {
+      reply.code(500).send({ 
+        error: 'Failed to create user', 
+        message: error.message 
+      });
+    }
   });
 
 }

@@ -9,5 +9,33 @@ const getUserData = async (username) => {
   return userData;
 }
 
+const createNewUser = async (userData) => {
+  try {
+    const query = `
+      INSERT INTO services.users (id, username, firstname, lastname, dob, email, mobileno, created_at) 
+      VALUES ($1, $2, $3, $4, $5, $6, $7, NOW()) 
+      RETURNING *
+    `;
 
-module.exports = { getUserData }
+    const [results] = await sequelizePostgres.query(query, {
+      bind: [
+        userData.userId,
+        userData.userName,
+        userData.firstname,
+        userData.lastname,
+        userData.dateofbirth,
+        userData.email,
+        userData.mobileNo
+      ],
+      type: sequelizePostgres.QueryTypes.INSERT
+    });
+
+    console.log('User inserted successfully:', results[0]);
+    return results[0];
+  } catch (error) {
+    console.error('Error inserting user:', error.message);
+    throw error;
+  }
+}
+
+module.exports = { getUserData, createNewUser }
