@@ -15,6 +15,7 @@ module.exports = (fastify) => {
   });
 
   // Declare a route
+  fastify.register(require("./token.routes"), { prefix: '/api' })
   fastify.register(require("./user.routes"), { prefix: '/api' })
   fastify.register(require("./lead.routes"), { prefix: '/api' })
 }

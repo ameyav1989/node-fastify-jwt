@@ -1,6 +1,6 @@
 const { getLeadData } = require("../controllers/lead.controller")
 
-async function leadRoutes(fastify, options) {
+async function routes(fastify, options) {
   fastify.get('/leads/:leadId', async (request, reply) => {
     return getLeadData(request.params.leadId)
   });
@@ -9,11 +9,6 @@ async function leadRoutes(fastify, options) {
     schema: {
       body: {
         type: 'object',
-        /* content: {
-            'application/json': {
-                schema: { type: 'object' }
-            }
-        }, */
         required: ['leadId', 'leadName'],
         properties: {
           leadId: { type: 'number', maxLength: 5 },
@@ -31,4 +26,4 @@ async function leadRoutes(fastify, options) {
 
 
 // CommonJs
-module.exports = leadRoutes
+module.exports = routes

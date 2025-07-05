@@ -1,11 +1,6 @@
-const { getJwtToken, getUserData } = require("../controllers/user.controller")
+const { getUserData } = require("../controllers/user.controller")
 
-async function userRoutes(fastify, options) {
-
-  fastify.get('/users/getToken/:userId', async (request, reply) => {
-    const token = getJwtToken(fastify, request.params.userId);
-    reply.send({ token })
-  });
+async function routes(fastify, options) {
 
   fastify.get('/users', async (request, reply) => {
     reply.send(await getUserData())
@@ -35,7 +30,6 @@ async function userRoutes(fastify, options) {
   fastify.post('/users/createuser', createUserOpts, async (request, reply) => {
     console.log(request.body)
 
-
     return request.body;
   });
 
@@ -43,4 +37,4 @@ async function userRoutes(fastify, options) {
 
 
 // CommonJs
-module.exports = userRoutes
+module.exports = routes
